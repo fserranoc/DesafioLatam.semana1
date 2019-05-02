@@ -1,20 +1,23 @@
 import React from 'react'
 import HeroRow from './HeroRow'
 
-const HeroTable = ({heroes, killHero, useRing, useRingStyle}) => (
+
+
+const HeroTable = ({heroes, handleKillHero, handleUseRing, enableRing}) => (
   <table className="characters-table">
-    <tbody>
+    <tbody >
       <tr className="character-row">
-        <th>Name</th>
-        <th>Race</th>
-        <th>Age</th>
-        <th>Weapon</th>
-        <th></th>
+        <th className="">Name </th>
+        <th className="">Race </th>
+        <th className="">Age </th>
+        <th className="">Weapon </th>
+        <th className="">Actions</th>
       </tr>
 
-      {heroes.map(({name, race, age, weapon}, index) => (
-        <HeroRow key={index} name={name} race={race} age={age} weapon={weapon} killHero={killHero} useRing={useRing} useRingStyle={useRingStyle} />
-      
+     
+      {heroes.map(({name, race, age, weapon, killed, useRing}, index) => (
+        <HeroRow key={index} index={index} name={name} race={race} age={age} weapon={weapon} killed={killed} useRing={useRing} enableRing={enableRing} handleKillHero={handleKillHero} handleUseRing={handleUseRing} />
+
       ))}
     </tbody>
   </table>

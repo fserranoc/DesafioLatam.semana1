@@ -10,8 +10,11 @@ const TableFilter = props => {
         placeholder={placeHolder}
         value={filterText}
         onChange={handleChange}
-      />
+      />🔎
+
+     
     </div>
+    
   )
 }
 

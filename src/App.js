@@ -6,22 +6,28 @@ import './App.css';
 
 const heroes = [
   { name: 'Gandalf', race: 'Maia', age: '2019', weapon: 'Staff 🏑' },
-  { name: 'Aragorn', race: 'Human', age: '120', weapon: 'Sword ⚔' },
+  { name: 'Aragorn', race: 'Human', age: '120', weapon: 'Sword ⚔️' },
   { name: 'Legolas', race: 'Elf', age: '200', weapon: 'Bow 🏹' },
   { name: 'Gimli', race: 'Dwarf', age: '139', weapon: 'Axe ⚒' },
-  { name: 'Frodo', race: 'Hobbit', age: '33', weapon: 'Dagger 🗡' }
+  { name: 'Frodo', race: 'Hobbit', age: '33', weapon: 'Dagger 🗡️' }
 ]
 
 class App extends Component {
   constructor (props) {
     super(props)
+    
+    const heroesModified = heroes.map( h => ({...h, killed:false, useRing:false }))  
+    
     this.state = {
       filterText: '',
-      useRing: ''
+      newHeroes: heroesModified,
+      enableRing: true
     }
 
+     
     this.handleInputChange = this.handleInputChange.bind(this)
-    this.useRing = this.useRing.bind(this)
+    this.handleKillHero = this.handleKillHero.bind(this)
+    this.handleUseRing = this.handleUseRing.bind(this)
 
    
   }
@@ -32,37 +38,34 @@ class App extends Component {
     })
   }
 
-  killHero (e){
-    let tr =  e.target.parentNode.parentNode.parentNode
-    tr.className = 'kill-hero'
+  handleKillHero (e, index){
+
+    var st = this.state     
+    st.newHeroes[index].killed = true
+    this.setState(st)
+    
   }
 
-  useRing(e){
-    let tr =  e.target.parentNode.parentNode.parentNode
-    tr.className = 'use-ring'
-    this.setState({
-      useRing:true
-    })
+  handleUseRing(e, index){
+
+    var st = this.state     
+    st.newHeroes[index].useRing = true
+    st.enableRing = false;
+    this.setState(st)
     
   }
   
 
   render() {
-    const {filterText} = this.state
-    const {useRing} = this.state
+    const filterText = this.state.filterText
+    const enableRing = this.state.enableRing
+    let filteredHeroes = this.state.newHeroes
 
-    let filteredHeroes = heroes
-    let useRingStyle = ''
 
     if (filterText) {
-      filteredHeroes = heroes.filter(hero => {
+      filteredHeroes = filteredHeroes.filter(hero => {
         return hero.name.includes(filterText)
       })
-    }
-
-    if(useRing)
-    {
-        useRingStyle = 'use-ring'
     }
 
     return (
@@ -75,8 +78,8 @@ class App extends Component {
             handleChange={this.handleInputChange}
             placeHolder='Input search...'
           />
-
-          {filteredHeroes.length > 0 && <HeroTable heroes={filteredHeroes} killHero={this.killHero} useRing={this.useRing} useRingStyle={useRingStyle} /> }
+          <br></br>
+          {filteredHeroes.length > 0 && <HeroTable heroes={filteredHeroes} handleKillHero={this.handleKillHero} handleUseRing={this.handleUseRing} enableRing={enableRing} /> }
 
           {filteredHeroes.length === 0 && <div>No heroes....</div> }
           

@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: center;  
 }
 
 .App-logo {
@@ -23,6 +23,10 @@
   to { transform: rotate(360deg); }
 }
 
+.index{
+  padding-left: 5pt; 
+}
+
 .kill-hero {
   text-decoration:line-through;
   color:red;
@@ -30,4 +34,15 @@
 
 .use-ring{
   display:none;
+}
+
+.disable-ring{
+  display:none;
+}
+
+th{
+  background-color: gray;
+}
+td{
+  border:0.5pt solid black ;
 }
